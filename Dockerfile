@@ -4,6 +4,11 @@ RUN apt-get update
 RUN apt-get install -y unzip libaio-dev php5-dev
 RUN apt-get clean -y
 
+# SSH Service
+apt-get install openssh-server 
+EXPOSE 22
+
+
 # Oracle instantclient
 ADD instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp/
 ADD instantclient-sdk-linux.x64-12.1.0.2.0.zip /tmp/
