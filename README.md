@@ -19,7 +19,7 @@ Usage
 Start your image binding the external ports 80 in all interfaces to your
 container:
 
-    docker run -d -p 80:80 davidgaya/apache-php-oci
+    docker run -d -p 80:80 diegoseso/docker-apache-php-oci
 
 Test your deployment:
 
