@@ -5,7 +5,7 @@ RUN apt-get install -y unzip libaio-dev php5-dev
 RUN apt-get clean -y
 
 # SSH Service
-RUN apt-get install openssh-server 
+RUN apt-get install -y openssh-server 
 EXPOSE 22
 
 
