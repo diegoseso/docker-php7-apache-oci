@@ -33,7 +33,7 @@ RUN pecl channel-update pear.php.net && \
     sed 's/10.1/12.1/' -i /tmp/PDO_OCI-1.0/config.m4 && \
     cd /tmp/PDO_OCI-1.0 && \
     phpize && \
-    ./configure --with-pdo-oci=/usr/local/instantclient/lib && \
+    ./configure --with-pdo-oci=/usr/local/instantclient && \
     make install
 
 
