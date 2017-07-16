@@ -1,11 +1,11 @@
 FROM tutum/apache-php
 
 # SSH Service
-RUN apt-get install -y openssh-server 
+RUN apt-get update && \
+    apt-get install -y openssh-server 
 EXPOSE 22
 
-RUN apt-get update && \
-    apt-get install -y unzip php5 php5-cli php5-dev php-db php-pear build-essential libaio1 re2c && \
+RUN apt-get install -y unzip php5 php5-cli php5-dev php-db php-pear build-essential libaio1 re2c && \
     ln -s /usr/include/php5 /usr/include/php
 
 # Install Oracle Instant Client Basic and SDK
