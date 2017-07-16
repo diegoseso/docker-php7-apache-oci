@@ -17,6 +17,7 @@ ADD instantclient-sqlplus-linux.x64-12.1.0.2.0.zip /tmp/
 RUN unzip /tmp/instantclient-basic-linux.x64-12.1.0.2.0.zip -d /usr/local/
 RUN unzip /tmp/instantclient-sdk-linux.x64-12.1.0.2.0.zip -d /usr/local/
 RUN unzip /tmp/instantclient-sqlplus-linux.x64-12.1.0.2.0.zip -d /usr/local/
+RUN mkdir /usr/local/instantclient
 RUN ln -s /usr/local/instantclient_12_1 /usr/local/instantclient/lib
 RUN ln -s /usr/local/instantclient/lib/libclntsh.so.12.1 /usr/local/instantclient/lib/libclntsh.so
 RUN ln -s /usr/local/instantclient/lib/sqlplus /usr/bin/sqlplus
