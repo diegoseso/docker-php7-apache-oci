@@ -22,7 +22,20 @@ RUN ln -s /usr/local/instantclient/libclntsh.so.12.1 /usr/local/instantclient/li
 RUN ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8-1.4.10
 RUN echo "extension=oci8.so" > /etc/php5/apache2/conf.d/30-oci8.ini
-RUN pecl install pdo_oci
+
+# Build PHP PDO-OCI extension
+RUN pecl channel-update pear.php.net && \
+    cd /tmp && \
+    pecl download pdo_oci && \
+    tar xvf /tmp/PDO_OCI-1.0.tgz -C /tmp && \
+    sed 's/function_entry/zend_function_entry/' -i /tmp/PDO_OCI-1.0/pdo_oci.c && \
+    sed 's/10.1/12.1/' -i /tmp/PDO_OCI-1.0/config.m4 && \
+    cd /tmp/PDO_OCI-1.0 && \
+    phpize && \
+    ./configure --with-pdo-oci=/usr/local/instantclient && \
+    make install
+
+
 
 RUN echo "<?php echo phpinfo(); ?>" > /app/index.php
 
