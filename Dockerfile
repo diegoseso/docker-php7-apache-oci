@@ -9,8 +9,8 @@ RUN apt-get install -y unzip php5 php5-cli php5-dev php-db php-pear build-essent
     ln -s /usr/include/php5 /usr/include/php
 
 # Install Oracle Instant Client Basic and SDK
-ADD instantclient/instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp/basic.zip
-ADD instantclient/instantclient-sdk-linux.x64-12.1.0.2.0.zip /tmp/sdk.zip
+ADD instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp/basic.zip
+ADD instantclient-sdk-linux.x64-12.1.0.2.0.zip /tmp/sdk.zip
 
 RUN mkdir -p /opt/oracle/instantclient && \
     unzip -q /tmp/basic.zip -d /opt/oracle && \
