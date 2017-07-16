@@ -1,7 +1,7 @@
 FROM tutum/apache-php
 
 RUN apt-get update
-RUN apt-get install -y unzip libaio-dev php5-dev
+RUN apt-get install -y unzip libaio-dev php5-dev php5-pdo
 RUN apt-get clean -y
 
 # SSH Service
@@ -22,6 +22,7 @@ RUN ln -s /usr/local/instantclient/libclntsh.so.12.1 /usr/local/instantclient/li
 RUN ln -s /usr/local/instantclient/sqlplus /usr/bin/sqlplus
 RUN echo 'instantclient,/usr/local/instantclient' | pecl install oci8-1.4.10
 RUN echo "extension=oci8.so" > /etc/php5/apache2/conf.d/30-oci8.ini
+RUN pecl install pdo_oci
 
 RUN echo "<?php echo phpinfo(); ?>" > /app/index.php
 
