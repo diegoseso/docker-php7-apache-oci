@@ -42,5 +42,5 @@ RUN pecl channel-update pear.php.net && \
     make install
 ADD pdo_oci.ini /etc/php5/conf.d/pdo_oci.ini
 ADD pdo_oci-test.php /tmp/pdo_oci-test.php
-RUN php /tmp/pdo_oci-test.php
+#RUN php /tmp/pdo_oci-test.php
 
