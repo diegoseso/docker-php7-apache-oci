@@ -43,11 +43,3 @@ ADD pdo_oci.ini /etc/php5/conf.d/pdo_oci.ini
 ADD pdo_oci-test.php /tmp/pdo_oci-test.php
 RUN php /tmp/pdo_oci-test.php
 
-# Connect to test database
-ADD connection-test.php /tmp/connection-test.php
-CMD php /tmp/connection-test.php
-
-# Add command to get compiled extensions
-ADD get-extension /bin/get-extension
-RUN echo "<?php echo phpinfo(); ?>" > /app/index.php
-
