@@ -50,5 +50,4 @@ RUN php /tmp/pdo_oci-test.php
 
 ADD xdebug.ini /etc/php5/apache2/conf.d/xdebug.ini
 
-RUN chown -R www-data:www-data /var/www/html/
 VOLUME ["/var/www/html"]
