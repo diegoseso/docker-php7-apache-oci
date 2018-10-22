@@ -49,5 +49,6 @@ ADD pdo_oci-test.php /tmp/pdo_oci-test.php
 RUN php /tmp/pdo_oci-test.php
 
 ADD xdebug.ini /etc/php5/apache2/conf.d/xdebug.ini
+RUN apt-get install memcached
 
 VOLUME ["/var/www/html"]
