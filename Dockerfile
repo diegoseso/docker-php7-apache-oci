@@ -16,6 +16,8 @@ RUN apt-get update && \
 # Install Oracle Instant Client Basic and SDK
 ADD instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp/basic.zip
 ADD instantclient-sdk-linux.x64-12.1.0.2.0.zip /tmp/sdk.zip
+ADD libxl-lin-3.6.4.tar.gz /tmp/libxl-lin-3.6.4.tar.gz
+ADD php_excel-master.zip /tmp/php_excel-master.zip
 
 RUN mkdir -p /opt/oracle/instantclient && \
     unzip -q /tmp/basic.zip -d /opt/oracle && \
@@ -47,6 +49,17 @@ RUN pecl channel-update pear.php.net && \
 ADD pdo_oci.ini /etc/php5/conf.d/pdo_oci.ini
 ADD pdo_oci-test.php /tmp/pdo_oci-test.php
 RUN php /tmp/pdo_oci-test.php
+
+
+ADD excel.ini /etc/php5/apache2/conf.d/excel.ini
+WORKDIR /tmp
+RUN tar xvfz libxl-lin-3.6.4.tar.gz
+RUN unzip master.zip
+
+WORKDIR /tmp/php_excel_master
+RUN phpize
+RUN ./configure --with-libxl-incdir=../libxl-3.6.4.0/include_c --with-libxl-libdir=../libxl-3.6.4.0/lib64
+RUN make && make install
 
 ADD xdebug.ini /etc/php5/apache2/conf.d/xdebug.ini
 RUN apt-get install memcached
