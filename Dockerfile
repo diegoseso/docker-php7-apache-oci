@@ -16,7 +16,7 @@ RUN apt-get update && \
 # Install Oracle Instant Client Basic and SDK
 ADD instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp/basic.zip
 ADD instantclient-sdk-linux.x64-12.1.0.2.0.zip /tmp/sdk.zip
-ADD libxl-lin-3.6.4.tar.gz /tmp/libxl-lin-3.6.4.tar.gz
+ADD libxl-lin-3.6.4.tar.gz /tmp
 ADD php_excel-master.zip /tmp/php_excel-master.zip
 
 RUN mkdir -p /opt/oracle/instantclient && \
@@ -56,7 +56,7 @@ WORKDIR /tmp
 RUN tar xvfz libxl-lin-3.6.4.tar.gz
 RUN unzip master.zip
 
-WORKDIR /tmp/php_excel_master
+WORKDIR /tmp/php_excel-master
 RUN phpize
 RUN ./configure --with-libxl-incdir=../libxl-3.6.4.0/include_c --with-libxl-libdir=../libxl-3.6.4.0/lib64
 RUN make && make install
