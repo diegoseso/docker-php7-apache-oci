@@ -16,7 +16,7 @@ RUN apt-get update && \
 # Install Oracle Instant Client Basic and SDK
 ADD instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp/basic.zip
 ADD instantclient-sdk-linux.x64-12.1.0.2.0.zip /tmp/sdk.zip
-ADD libxl-lin-3.6.4.tar.gz /tmp
+COPY libxl-lin-3.6.4.tar.gz /tmp/libxl-lin-3.6.4.tar.gz
 ADD php_excel-master.zip /tmp/php_excel-master.zip
 
 RUN mkdir -p /opt/oracle/instantclient && \
