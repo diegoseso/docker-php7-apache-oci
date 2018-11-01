@@ -54,12 +54,14 @@ RUN php /tmp/pdo_oci-test.php
 ADD excel.ini /etc/php5/apache2/conf.d/excel.ini
 WORKDIR /tmp
 RUN tar xvfz libxl-lin-3.6.4.tar.gz
-RUN unzip master.zip
+RUN unzip php_excel-master.zip
+
+RUN apt-get install libxml2-dev && cp -R /usr/include/libxml2/libxml/ /usr/include/
 
 WORKDIR /tmp/php_excel-master
 RUN phpize
 RUN ./configure --with-libxl-incdir=../libxl-3.6.4.0/include_c --with-libxl-libdir=../libxl-3.6.4.0/lib64
-RUN make && make install
+#RUN make && make install
 
 ADD xdebug.ini /etc/php5/apache2/conf.d/xdebug.ini
 RUN apt-get install memcached
