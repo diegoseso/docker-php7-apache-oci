@@ -10,9 +10,7 @@ RUN apt-get update && \
 EXPOSE 22
 
 RUN apt-get update && \
-    apt-get install -y memcached unzip php php-cli php-dev php-xdebug php-pear php-memcache build-essential libaio1 re2c sqlite sqlite3 && \
-    # php-sqlite
-    ln -s /usr/include/php /usr/include/php
+    apt-get install -y memcached unzip curl php php-cli php-curl php-dev php-xdebug php-pear php-memcache build-essential libaio1 re2c sqlite sqlite3 php-sqlite3
 
 # Install Oracle Instant Client Basic and SDK
 ADD instantclient-basic-linux.x64-12.1.0.2.0.zip /tmp/basic.zip
@@ -29,13 +27,10 @@ RUN mkdir -p /opt/oracle/instantclient && \
 
 # Install PHP OCI8 extension
 RUN echo 'instantclient,/opt/oracle/instantclient/lib' | pecl install oci8
-ADD oci8.ini /etc/php/conf.d/oci8.ini
-ADD oci8-test.php /tmp/oci8-test.php
-RUN php /tmp/oci8-test.php
-ADD php-7.3.19 /tmp/php-7.3.19
-WORKDIR /tmp/php-7.3.19/ext/pdo_oci
+ADD pdo_oci /tmp/pdo_oci
+WORKDIR /tmp/pdo_oci
 RUN phpize
-RUN ./configure --with-pdo-oci=instantclient,/opt/oracle/instantclient/lib
+RUN ./configure --with-pdo-oci=instantclient,/opt/oracle/instantclient/lib,12.1
 RUN make && make install
 
 COPY libxl-lin-3.9.1.0.tar.gz /tmp/libxl-lin-3.9.1.0.tar.gz
@@ -49,7 +44,15 @@ RUN phpize
 RUN ./configure --with-libxl-incdir=../libxl-3.9.1.0/include_c --with-libxl-libdir=../libxl-3.9.1.0/lib64
 RUN make && make install
 
-ADD excel.ini /etc/php/apache2/conf.d/excel.ini
-ADD xdebug.ini /etc/php/apache2/conf.d/xdebug.ini
+ADD excel.ini /etc/php/7.3/mods-available/excel.ini
+ADD xdebug.ini /etc/php/7.3/mods-available/xdebug.ini
+ADD oci8.ini /etc/php/7.3/mods-available/oci8.ini
+ADD pdo_oci.ini /etc/php/7.3/mods-available/pdo_oci.ini
+
+WORKDIR /etc/php/apache2/conf.d
+RUN ln -s /etc/php/7.3/mods-available/excel.ini 20-excel.ini
+RUN ln -s /etc/php/7.3/mods-available/xdebug.ini 20-xdebug.ini
+RUN ln -s /etc/php/7.3/mods-available/oci8.ini 20-oci8.ini
+RUN ln -s /etc/php/7.3/mods-available/pdo_oci.ini 20-pdo_oci.ini
 
 VOLUME ["/var/www/html"]
