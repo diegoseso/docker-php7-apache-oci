@@ -50,9 +50,9 @@ ADD oci8.ini /etc/php/7.3/mods-available/oci8.ini
 ADD pdo_oci.ini /etc/php/7.3/mods-available/pdo_oci.ini
 
 WORKDIR /etc/php/apache2/conf.d
-RUN ln -s /etc/php/7.3/mods-available/excel.ini 20-excel.ini
-RUN ln -s /etc/php/7.3/mods-available/xdebug.ini 20-xdebug.ini
-RUN ln -s /etc/php/7.3/mods-available/oci8.ini 20-oci8.ini
-RUN ln -s /etc/php/7.3/mods-available/pdo_oci.ini 20-pdo_oci.ini
+RUN ln -s /etc/php/7.3/mods-available/excel.ini /etc/php/7.3/apache2/conf.d/20-excel.ini
+RUN ln -s /etc/php/7.3/mods-available/xdebug.ini /etc/php/7.3/apache2/conf.d/20-xdebug.ini
+RUN ln -s /etc/php/7.3/mods-available/oci8.ini /etc/php/7.3/apache2/conf.d/20-oci8.ini
+RUN ln -s /etc/php/7.3/mods-available/pdo_oci.ini /etc/php/7.3/apache2/conf.d/20-pdo_oci.ini
 
 VOLUME ["/var/www/html"]
