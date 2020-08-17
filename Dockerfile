@@ -45,7 +45,6 @@ RUN ./configure --with-libxl-incdir=../libxl-3.9.1.0/include_c --with-libxl-libd
 RUN make && make install
 
 ADD excel.ini /etc/php/7.3/mods-available/excel.ini
-ADD xdebug.ini /etc/php/7.3/mods-available/xdebug.ini
 ADD oci8.ini /etc/php/7.3/mods-available/oci8.ini
 ADD pdo_oci.ini /etc/php/7.3/mods-available/pdo_oci.ini
 
@@ -53,5 +52,6 @@ WORKDIR /etc/php/apache2/conf.d
 RUN ln -s /etc/php/7.3/mods-available/excel.ini /etc/php/7.3/apache2/conf.d/20-excel.ini
 RUN ln -s /etc/php/7.3/mods-available/oci8.ini /etc/php/7.3/apache2/conf.d/20-oci8.ini
 RUN ln -s /etc/php/7.3/mods-available/pdo_oci.ini /etc/php/7.3/apache2/conf.d/20-pdo_oci.ini
+RUN sed -i -e 's/max_execution_time = 30/max_execution_time = 0/g' /etc/php/7.3/apache2/php.ini
 
 VOLUME ["/var/www/html"]
